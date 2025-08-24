@@ -13,11 +13,6 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."], function () {
-    Route::get('register', [RegisteredUserAdminController::class, 'create'])
-        ->name('register');
-
-    Route::post('register', [RegisteredUserAdminController::class, 'store']);
-
     Route::get('login', [AuthenticatedSessionAdminController::class, 'create'])
         ->name('login');
 

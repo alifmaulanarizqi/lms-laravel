@@ -14,13 +14,25 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('role', ['instructor', 'student']);
+            $table->string('image')->default('default-files/user-default.png');
+            $table->string('headline')->nullable();
             $table->string('email')->unique();
+            $table->text('bio')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('document')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['instructor', 'student']);
+            $table->string('facebook')->nullable();
+            $table->string('x')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('website')->nullable();
+            $table->string('github')->nullable();
+            $table->enum('login_as', ['student', 'instructor'])->nullable();
+            $table->enum('approve_status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->rememberToken();
             $table->timestamps();
-        });
+        }); 
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

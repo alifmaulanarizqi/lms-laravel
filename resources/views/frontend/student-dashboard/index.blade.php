@@ -156,7 +156,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"
+                                <a href="javascript:;"
                                     onclick="event.preventDefault();
                                         $('#logout').submit();">
                                     <div class="img">

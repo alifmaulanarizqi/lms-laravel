@@ -35,7 +35,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg"
+                                            <a href="{{ route('admin.instructor-requests.download-document', $instructorRequest->id) }}" class="text-muted"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round"
@@ -47,11 +47,13 @@
                                                 </svg></a>
                                         </td>
                                         <td>
-                                          <form action="">
-                                            <select name="" id="" class="form-control">
-                                              <option value="approved">Pending</option>
-                                              <option value="rejected">Approved</option>
-                                              <option value="rejected">Rejected</option>
+                                          <form method="POST" action="{{ route('admin.instructor-requests.update', $instructorRequest->id) }}" class="status-{{ $instructorRequest->id }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="status" class="form-control" onchange="$('.status-{{ $instructorRequest->id }}').submit()">
+                                              <option @selected($instructorRequest->approve_status === 'pending') value="pending">Pending</option>
+                                              <option @selected($instructorRequest->approve_status === 'approved') value="approved">Approved</option>
+                                              <option @selected($instructorRequest->approve_status === 'rejected') value="rejected">Rejected</option>
                                             </select>
                                           </form>
                                         </td>

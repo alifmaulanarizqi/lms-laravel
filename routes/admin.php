@@ -61,8 +61,11 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     * ------------------------------------------------------------
     */
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    
+    // instructor request
     Route::get('instructor-requests', [InstructorRequestAdminController::class, 'index'])->name('instructor-requests');
-
+    Route::put('instructor-requests/{id}', [InstructorRequestAdminController::class, 'update'])->name('instructor-requests.update');
+    Route::get('instructor-document-download/{id}', [InstructorRequestAdminController::class, 'downloadDocument'])->name('instructor-requests.download-document');
 });
 
 

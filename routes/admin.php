@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkAdminController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserAdminController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailAdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\InstructorRequestAdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(["middleware" => "guest:admin", "prefix" => "admin", "as" => "admin."], function () {
@@ -60,6 +61,8 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     * ------------------------------------------------------------
     */
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('instructor-requests', [InstructorRequestAdminController::class, 'index'])->name('instructor-requests');
+
 });
 
 

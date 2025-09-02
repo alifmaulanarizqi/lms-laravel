@@ -10,10 +10,10 @@
                 <div class="row">
                     <div class="col-12 wow fadeInUp">
                         <div class="wsus__breadcrumb_text">
-                            <h1>Student Dashboard</h1>
+                            <h1>Become an Instructor</h1>
                             <ul>
                                 <li><a href="{{ url('/') }}">Home</a></li>
-                                <li>Student Dashboard</li>
+                                <li>Become an Instructor</li>
                             </ul>
                         </div>
                     </div>
@@ -45,35 +45,26 @@
                     </div>
                 </div>
             @endif
-            <div class="text-end">
-                <a href="{{ route('student.become-instructor') }}" class="btn btn-primary">Become an Instructor</a>
-            </div>
             <div class="row">
                 @include('frontend.student-dashboard.sidebar')
-                <div class="col-xl-9 col-md-8">
-                    <div class="row">
-                        <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                            <div class="wsus__dash_earning">
-                                <h6>REVENUE</h6>
-                                <h3>$2456.34</h3>
-                                <p>Earning this month</p>
+                <div class="col-xl-9 col-md-8 wow fadeInUp">
+                    <div class="card mt-4">
+                            <div class="card-header">
+                                Become an Instructor
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="document">Document</label>
+                                        <input type="file" name="document" id="document" class="form-control">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                            <div class="wsus__dash_earning">
-                                <h6>STUDENTS ENROLLMENTS</h6>
-                                <h3>16,450</h3>
-                                <p>Progress this month</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                            <div class="wsus__dash_earning">
-                                <h6>COURSES RATING</h6>
-                                <h3>4.70</h3>
-                                <p>Rating this month</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -45,6 +45,9 @@
                     </div>
                 </div>
             @endif
+            <div class="text-end">
+                <a href="{{ back()->getTargetUrl() }}" class="common_btn">Back to Dashboard</a>
+            </div>
             <div class="row">
                 @include('frontend.student-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8 wow fadeInUp">
@@ -53,11 +56,12 @@
                                 Become an Instructor
                             </div>
                             <div class="card-body">
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('student.become-instructor.store', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="document">Document</label>
-                                        <input type="file" name="document" id="document" class="form-control">
+                                        <input type="file" name="document" id="document" class="form-control" required>
+                                        <x-input-error :messages="$errors->get('document')" class="mt-2" />
                                     </div>
                                     <div class="form-group mt-3">
                                         <button type="submit" class="btn btn-primary">Submit</button>

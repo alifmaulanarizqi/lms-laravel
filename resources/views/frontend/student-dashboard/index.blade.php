@@ -45,9 +45,15 @@
                     </div>
                 </div>
             @endif
-            <div class="text-end">
-                <a href="{{ route('student.become-instructor') }}" class="btn btn-primary">Become an Instructor</a>
-            </div>
+            @if ((auth()->user()->approve_status === 'approved' || auth()->user()->approve_status === 'rejected') && auth()->user()->role === 'student')
+                <div class="text-end">
+                    <a href="{{ route('student.become-instructor') }}" class="common_btn">Become an Instructor</a>
+                </div>
+            @elseif (auth()->user()->approve_status === 'approved' && auth()->user()->role === 'instructor')
+                <div class="text-end">
+                    <a href="{{ route('instructor.dashboard') }}" class="common_btn">To Instructor Dashboard</a>
+                </div>
+            @endif
             <div class="row">
                 @include('frontend.student-dashboard.sidebar')
                 <div class="col-xl-9 col-md-8">

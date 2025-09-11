@@ -26,8 +26,6 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        // dd($request->user()->role);
-
         $request->session()->regenerate();
 
         if ($request->user()->role === 'instructor') {

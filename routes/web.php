@@ -4,6 +4,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentProfileController;
+use App\Http\Controllers\Frontend\InstructorProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -41,6 +42,12 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:student'], 'p
 */
 Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'], 'prefix' => 'instructor', 'as' => 'instructor.'], function () {
     Route::get('/dashboard', [InstructorDashboardController::class, 'index'])->name('dashboard');
+
+    // ** Profile Route ** //
+    Route::get('/profile', [InstructorProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update-information', [InstructorProfileController::class, 'updateInformation'])->name('profile.update.user.information');
+    Route::post('/profile/update-social', [InstructorProfileController::class, 'updateSocial'])->name('profile.update.user.social');
+    Route::post('/profile/update-password', [InstructorProfileController::class, 'updatePassword'])->name('profile.update.user.password');
 });
 
 require __DIR__.'/auth.php';

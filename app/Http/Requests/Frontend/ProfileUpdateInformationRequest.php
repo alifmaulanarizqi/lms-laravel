@@ -27,7 +27,6 @@ class ProfileUpdateInformationRequest extends FormRequest
             "gender" => "nullable|string|in:male,female",
             "headline" => "nullable|string|max:255",
             "bio" => "nullable|string|max:6000",
-            "image" 
-        ];
+            "image" => "nullable|image|max:5000"        ];
     }
 }

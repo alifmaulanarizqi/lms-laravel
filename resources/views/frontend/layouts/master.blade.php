@@ -134,26 +134,40 @@
             "hideMethod": "fadeOut"
         };
 
-        // Show toast notifications from Laravel session
+        // Show toast notifications from Laravel session (with back button prevention)
+        function showToastOnce(type, message, sessionKey) {
+            // Create a unique key for this toast based on timestamp and message
+            const toastKey = sessionKey + '_' + Date.now();
+            
+            // Check if we've already shown a toast for this session
+            const lastToastKey = sessionStorage.getItem('lastToast_' + sessionKey);
+            
+            // Only show if this is a new toast (different timestamp/session)
+            if (!lastToastKey || performance.navigation.type !== 2) { // type 2 = back/forward navigation
+                toastr[type](message);
+                sessionStorage.setItem('lastToast_' + sessionKey, toastKey);
+            }
+        }
+
         @if(session('success'))
-            toastr.success('{{ session('success') }}');
+            showToastOnce('success', '{{ session('success') }}', 'success');
         @endif
 
         @if(session('error'))
-            toastr.error('{{ session('error') }}');
+            showToastOnce('error', '{{ session('error') }}', 'error');
         @endif
 
         @if(session('info'))
-            toastr.info('{{ session('info') }}');
+            showToastOnce('info', '{{ session('info') }}', 'info');
         @endif
 
         @if(session('warning'))
-            toastr.warning('{{ session('warning') }}');
+            showToastOnce('warning', '{{ session('warning') }}', 'warning');
         @endif
 
         @if($errors->any())
             @foreach($errors->all() as $error)
-                toastr.error('{{ $error }}');
+                showToastOnce('error', '{{ $error }}', 'validation_error_{{ $loop->index }}');
             @endforeach
         @endif
     </script>

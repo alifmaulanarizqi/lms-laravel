@@ -17,7 +17,8 @@ class CourseLanguageController extends Controller
      */
     public function index() : View
     {
-        return view('admin.course.course-language.course-language');
+        $courseLanguages = CourseLanguage::paginate(15);
+        return view('admin.course.course-language.course-language', compact('courseLanguages'));
     }
 
     /**
@@ -52,17 +53,24 @@ class CourseLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $courseLanguage = CourseLanguage::findOrFail($id);
+        return view('admin.course.course-language.edit-course-language', compact('courseLanguage'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CourseLanguageRequest $request, string $id) : RedirectResponse
     {
-        //
+        $courseLanguage = CourseLanguage::findOrFail($id);
+        $courseLanguage->name = $request->name;
+        $courseLanguage->slug = Str::slug($request->name);
+        $courseLanguage->save();
+        return redirect()
+        ->route('admin.course-languages.index')
+        ->with('success', 'Course language updated successfully');
     }
 
     /**

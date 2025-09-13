@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkAdminController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserAdminController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailAdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CourseLanguageController;
 use App\Http\Controllers\Admin\InstructorRequestAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,10 +63,21 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
     */
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
-    // instructor request
+    /**
+     * ------------------------------------------------------------
+     * Instructor Request Route
+     * ------------------------------------------------------------
+     */
     Route::get('instructor-requests', [InstructorRequestAdminController::class, 'index'])->name('instructor-requests');
     Route::put('instructor-requests/{id}', [InstructorRequestAdminController::class, 'update'])->name('instructor-requests.update');
     Route::get('instructor-document-download/{id}', [InstructorRequestAdminController::class, 'downloadDocument'])->name('instructor-requests.download-document');
+
+    /**
+    * ------------------------------------------------------------
+    * Course Language Route
+    * ------------------------------------------------------------
+    */
+    Route::resource('course-languages', CourseLanguageController::class);
 });
 
 

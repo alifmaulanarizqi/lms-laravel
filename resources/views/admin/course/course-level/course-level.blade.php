@@ -5,9 +5,9 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Course Languages</h3>
+                    <h3 class="card-title">Course Levels</h3>
                     <div class="card-actions">
-                        <a href="{{ route('admin.course-languages.create') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.course-levels.create') }}" class="btn btn-primary">
                             <i class="ti ti-plus me-1"></i>
                             Add new
                         </a>
@@ -24,16 +24,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($courseLanguages as $courseLanguage)
+                                @forelse ($courseLevels as $courseLevel)
                                     <tr>
-                                        <td>{{ $courseLanguage->name }}</td>
-                                        <td>{{ $courseLanguage->slug }}</td>
+                                        <td>{{ $courseLevel->name }}</td>
+                                        <td>{{ $courseLevel->slug }}</td>
                                         <td>
-                                            <a href="{{ route('admin.course-languages.edit', $courseLanguage->id) }}"
+                                            <a href="{{ route('admin.course-levels.edit', $courseLevel->id) }}"
                                                 class="text-blue">
                                                 <i class="ti ti-edit"></i>
                                             </a>
-                                            <a href="{{ route('admin.course-languages.destroy', $courseLanguage->id) }}"
+                                            <a href="{{ route('admin.course-levels.destroy', $courseLevel->id) }}"
                                                 class="text-red delete-item">
                                                 <i class="ti ti-trash"></i>
                                             </a>
@@ -48,7 +48,7 @@
                         </table>
                     </div>
                     <div class="mt-4">
-                        {{ $courseLanguages->links() }}
+                        {{ $courseLevels->links() }}
                     </div>
                 </div>
             </div>

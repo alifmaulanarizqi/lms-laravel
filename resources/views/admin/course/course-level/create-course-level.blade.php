@@ -5,7 +5,7 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Update Course Languages</h3>
+                    <h3 class="card-title">Add Course Levels</h3>
                     <div class="card-actions">
                         <a href="{{ url()->previous() }}" class="btn btn-primary">
                             <i class="ti ti-arrow-left me-1"></i>
@@ -14,19 +14,18 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.course-languages.update', $courseLanguage->id) }}" method="POST">
+                    <form action="{{ route('admin.course-levels.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="mb-3">
-                            <label for="name" class="form-label">Language Name</label>
+                            <label for="name" class="form-label">Level Name</label>
                             <input type="text" name="name" id="name" class="form-control"
-                                placeholder="Enter language name" value="{{ $courseLanguage->name }}" required>
+                                placeholder="Enter level name" required>
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">
                                 <i class="ti ti-device-floppy me-1"></i>
-                                Update Language</button>
+                                Add Level</button>
                         </div>
                     </form>
                 </div>

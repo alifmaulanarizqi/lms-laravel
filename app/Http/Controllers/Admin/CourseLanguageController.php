@@ -7,8 +7,6 @@ use App\Http\Requests\Admin\CourseLanguage\CourseLanguageRequest;
 use App\Models\CourseLanguage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Str;
 
 class CourseLanguageController extends Controller

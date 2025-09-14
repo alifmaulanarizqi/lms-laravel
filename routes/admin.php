@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserAdminController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailAdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CourseLanguageController;
+use App\Http\Controllers\Admin\CourseLevelController;
 use App\Http\Controllers\Admin\InstructorRequestAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -74,10 +75,11 @@ Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin.
 
     /**
     * ------------------------------------------------------------
-    * Course Language Route
+    * Course Level Route
     * ------------------------------------------------------------
     */
     Route::resource('course-languages', CourseLanguageController::class);
+    Route::resource('course-levels', CourseLevelController::class);
 });
 
 

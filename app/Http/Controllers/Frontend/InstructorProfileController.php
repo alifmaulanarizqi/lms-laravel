@@ -43,6 +43,7 @@ class InstructorProfileController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Profile information updated successfully!');
         } catch (\Exception $e) {
+            logger($e);
             return redirect()->back()->with('error', 'Failed to update profile information. Please try again.');
         }
     }
@@ -55,6 +56,7 @@ class InstructorProfileController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Password updated successfully!');
         } catch (\Exception $e) {
+            logger($e);
             return redirect()->back()->with('error', 'Failed to update password. Please try again.');
         }
     }
@@ -71,6 +73,7 @@ class InstructorProfileController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Social media updated successfully!');
         } catch (\Exception $e) {
+            logger($e);
             return redirect()->back()->with('error', 'Failed to update social media. Please try again.');
         }
     }

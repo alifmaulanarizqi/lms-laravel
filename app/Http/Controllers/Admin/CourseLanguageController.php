@@ -8,6 +8,7 @@ use App\Models\CourseLanguage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Str;
 
 class CourseLanguageController extends Controller
@@ -15,7 +16,7 @@ class CourseLanguageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
         $courseLanguages = CourseLanguage::paginate(15);
         return view('admin.course.course-language.course-language', compact('courseLanguages'));
@@ -24,7 +25,7 @@ class CourseLanguageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         return view('admin.course.course-language.create-course-language');
     }
@@ -32,14 +33,22 @@ class CourseLanguageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CourseLanguageRequest $request) : RedirectResponse {
-        $coureLanguage = new CourseLanguage();
-        $coureLanguage->name = $request->name;
-        $coureLanguage->slug = Str::slug($request->name);
-        $coureLanguage->save();
-        return redirect()
-        ->route('admin.course-languages.index')
-        ->with('success', 'Course language added successfully');
+    public function store(CourseLanguageRequest $request): RedirectResponse
+    {
+        try {
+            $coureLanguage = new CourseLanguage();
+            $coureLanguage->name = $request->name;
+            $coureLanguage->slug = Str::slug($request->name);
+            $coureLanguage->save();
+            return redirect()
+                ->route('admin.course-languages.index')
+                ->with('success', 'Course language added successfully');
+        } catch (\Exception $e) {
+            logger($e);
+            return redirect()
+                ->route('admin.course-languages.index')
+                ->with('error', 'Course language added failed. Please try again.');
+        }
     }
 
     /**
@@ -53,7 +62,7 @@ class CourseLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         $courseLanguage = CourseLanguage::findOrFail($id);
         return view('admin.course.course-language.edit-course-language', compact('courseLanguage'));
@@ -62,15 +71,22 @@ class CourseLanguageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CourseLanguageRequest $request, string $id) : RedirectResponse
+    public function update(CourseLanguageRequest $request, string $id): RedirectResponse
     {
-        $courseLanguage = CourseLanguage::findOrFail($id);
-        $courseLanguage->name = $request->name;
-        $courseLanguage->slug = Str::slug($request->name);
-        $courseLanguage->save();
-        return redirect()
-        ->route('admin.course-languages.index')
-        ->with('success', 'Course language updated successfully');
+        try {
+            $courseLanguage = CourseLanguage::findOrFail($id);
+            $courseLanguage->name = $request->name;
+            $courseLanguage->slug = Str::slug($request->name);
+            $courseLanguage->save();
+            return redirect()
+                ->route('admin.course-languages.index')
+                ->with('success', 'Course language updated successfully');
+        } catch (\Exception $e) {
+            logger($e);
+            return redirect()
+                ->route('admin.course-languages.index')
+                ->with('error', 'Course language updated failed. Please try again.');
+        }
     }
 
     /**
@@ -78,6 +94,14 @@ class CourseLanguageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $courseLanguage = CourseLanguage::findOrFail($id);
+            throw new \Exception('Test exception to trigger catch block');
+            $courseLanguage->delete();
+            return response()->json(['message' => "Course language deleted successfully"], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response()->json(['message' => "Course language deleted failed. Please try again."], 500);
+        }
     }
 }

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard</title>
     <!-- CSS files -->
     <link href="{{ asset('admin/assets/dist/css/tabler.min.css?169287048') }}" rel="stylesheet" />
@@ -44,6 +45,7 @@
 
         </div>
     </div>
+
     <!-- Modals -->
     @include('admin.layouts.delete-modal')
 
@@ -53,6 +55,7 @@
 
     <!--jquery library js-->
     <script src="{{ asset('frontend/assets/js/jquery-3.7.1.min.js') }}"></script>
+    
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -112,12 +115,32 @@
 
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
-                    console.log('Validation error found:', '{{ $error }}'); // Debug log
                     showToastOnce('error', '{{ $error }}', 'validation_error_{{ $loop->index }}');
                 @endforeach
             @endif
         });
+
+        // Delete Success/Fail Message Toast
+        document.addEventListener("DOMContentLoaded", function() {
+            const msg = localStorage.getItem('delete_toast_message');
+            const isSuccess = JSON.parse(localStorage.getItem('is_delete_toast_success'));
+            console.log(typeof isSuccess);
+            if (msg) {
+                if(isSuccess) {
+                    console.log("success", msg, isSuccess);
+                    showToastOnce('success', msg, 'success');
+                } else {
+                    console.log("error", msg, isSuccess);
+                    showToastOnce('error', msg, 'error');
+                }
+
+                // clear after showing
+                localStorage.removeItem('delete_toast_message');
+                localStorage.removeItem('is_delete_toast_success'); 
+            }
+        });
     </script>
+
 </body>
 
 </html>

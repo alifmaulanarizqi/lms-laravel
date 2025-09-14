@@ -23,12 +23,12 @@
                 <div class="w-100">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn w-100" data-bs-dismiss="modal">
+                            <button type="button" class="btn w-100" >
                                 Cancel
                             </button>
                         </div>
                         <div class="col">
-                            <a href="#" id="delete-confirm-btn" class="btn btn-danger w-100" data-bs-dismiss="modal">
+                            <a href="#" id="delete-confirm-btn" class="btn btn-danger delete-confirm-btn w-100">
                                 Delete
                             </a>
                         </div>

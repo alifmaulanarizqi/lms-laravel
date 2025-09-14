@@ -96,7 +96,6 @@ class CourseLanguageController extends Controller
     {
         try {
             $courseLanguage = CourseLanguage::findOrFail($id);
-            throw new \Exception('Test exception to trigger catch block');
             $courseLanguage->delete();
             return response()->json(['message' => "Course language deleted successfully"], 200);
         } catch (\Exception $e) {
